@@ -3,7 +3,7 @@
   "name": "cro-ai-day",
   "displayName": "CRO AI Day",
   "description": "Plugin de CRO com Skills e sub-agentes por papel do time: setup (cro-md), analista (heurística, hipótese, ICE, segmentos), QA (pre-flight, SRM) e dev (variante, design system), mais o slot da skill de metodologia do seu time. A skill /cro-ai-day:ciclo despacha os três sub-agentes em sequência.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Lucian Fialho",
     "email": "lucian@metricasboss.com.br",

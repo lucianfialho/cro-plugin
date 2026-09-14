@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Marketplace do plugin de CRO da Métricas Boss — skills por papel do time.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -14,7 +14,7 @@
       "source": "./",
       "displayName": "CRO AI Day",
       "description": "Skills de CRO organizadas por papel: analista, QA, dev — e o slot da skill de metodologia do seu time.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": { "name": "Lucian Fialho" },
       "category": "productivity",
       "tags": ["cro", "experimentacao", "teste-ab", "analytics", "conversao"]
