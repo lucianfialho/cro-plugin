@@ -1,0 +1,23 @@
+{
+  "name": "cro-plugin",
+  "owner": {
+    "name": "Lucian Fialho",
+    "email": "lucian@metricasboss.com.br"
+  },
+  "metadata": {
+    "description": "Marketplace do plugin de CRO da Métricas Boss — skills por papel do time.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "cro",
+      "source": "./",
+      "displayName": "CRO com Claude",
+      "description": "Skills de CRO organizadas por papel: analista, QA, dev — e o slot da skill de metodologia do seu time.",
+      "version": "0.1.0",
+      "author": { "name": "Lucian Fialho" },
+      "category": "productivity",
+      "tags": ["cro", "experimentacao", "teste-ab", "analytics", "conversao"]
+    }
+  ]
+}

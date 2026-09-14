@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "cro",
+  "displayName": "CRO com Claude",
+  "description": "Plugin de CRO com Skills por papel do time: setup (cro-md), analista (heurística, hipótese, ICE, segmentos), QA (pre-flight, SRM) e dev (variante, design system), mais o slot da skill de metodologia do seu time.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Lucian Fialho",
+    "email": "lucian@metricasboss.com.br",
+    "url": "https://metricasboss.com.br"
+  },
+  "homepage": "https://github.com/lucianfialho/cro-plugin",
+  "repository": "https://github.com/lucianfialho/cro-plugin",
+  "license": "MIT",
+  "keywords": ["cro", "experimentacao", "teste-ab", "analytics", "conversao"]
+}
