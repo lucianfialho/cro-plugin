@@ -60,7 +60,7 @@ claude plugin marketplace remove cro-plugin
 | QA | `cro:srm-check` | Valida Sample Ratio Mismatch (chi-quadrado) antes de qualquer leitura de resultado. |
 | Dev | `cro:variante-builder` | Transforma a hipótese fechada no código da variante B (JS/CSS) e na lista de eventos a instrumentar. |
 | Dev | `cro:detecta-design-system` | Lê o site e escreve um `DESIGN.md` com paleta, tipografia e componentes reais, para a variante sair com a cara certa. |
-| Setup | `cro:cro-md` | Cria o CRO.md do projeto a partir do template e registra `@CRO.md` no CLAUDE.md. Roda logo depois do `/init`. |
+| Setup | `cro:cro-md` | Confirma a pasta do projeto, pergunta sobre a loja, cria o CRO.md com a seção Negócio preenchida e registra `@CRO.md` no CLAUDE.md. Um hook do plugin impede rodar na home, Desktop ou Downloads. |
 | Metodologia | `cro:valida-skill-cro` | Dá nota em 5 critérios na skill de processo que você escreveu e aponta a lacuna sem preenchê-la. |
 | Metodologia | `cro:metodologia-exemplo` | Exemplo do que você vai escrever: o processo de CRO de um time fictício, com papéis, handoffs e entregáveis nos 7 passos do ciclo. |
 

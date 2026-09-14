@@ -1,29 +1,44 @@
 ---
 name: cro-md
-description: Cria o CRO.md do projeto (o contexto da loja pro Claude) a partir do template do workshop e registra @CRO.md no CLAUDE.md. Use quando o usuário disser "cria o CRO.md", "inicia o contexto da loja", "monta o arquivo de contexto de CRO" ou rodar /cro:cro-md logo depois do /init.
+description: Cria o CRO.md do projeto (o contexto da loja pro Claude) a partir do template do workshop, preenche a seção Negócio com o que o usuário responder e registra @CRO.md no CLAUDE.md. Use quando o usuário disser "cria o CRO.md", "inicia o contexto da loja", "monta o arquivo de contexto de CRO" ou rodar /cro:cro-md.
 ---
 
 # CRO.md — o contexto da loja, num arquivo
 
 ## Tarefa
 
-1. Se já existe `CRO.md` no diretório atual, **pare** e diga que ele existe. Não sobrescreva.
-2. Pergunte só uma coisa: **o nome da loja**. Se o usuário não souber ou não quiser, use "minha loja".
-3. Escreva `CRO.md` no diretório atual com o template abaixo, trocando "Malha Viva" pelo nome dado
-   e mudando a primeira linha para `# CRO.md — contexto da loja <nome>`.
-   Mantenha os comentários HTML: são as instruções de preenchimento e não entram no contexto.
-4. No `CLAUDE.md` do diretório atual:
+1. **Confirme a pasta.** Diga em uma linha onde você está (o caminho completo do diretório
+   atual) e pergunte: "É a pasta do projeto? Se não, me diz qual." Só siga com um sim.
+   Se o usuário indicar outra pasta, escreva os arquivos lá e avise que ele precisa abrir
+   o Claude nessa pasta pra o contexto valer.
+2. Se já existe `CRO.md` na pasta, **pare** e diga que ele existe. Não sobrescreva.
+3. **Pergunte, numa mensagem só**, e aceite resposta parcial (o que não vier, deixe em branco):
+   - nome da loja
+   - endereço do site (URL)
+   - o que vende, em uma frase
+   - ticket médio, se souber
+   - plataforma da loja (VTEX, Shopify, Nuvemshop, Magento, própria…)
+   - onde estão os dados de comportamento (GA4? outro?)
+   - por onde chega o SAC (Zendesk, WhatsApp, e-mail…)
+4. Escreva `CRO.md` na pasta com o template abaixo:
+   - primeira linha: `# CRO.md — contexto da loja <nome>`, e logo abaixo `Site: <URL>`
+   - **seção 1. Negócio** preenchida com o que veio das respostas, no lugar do exemplo
+     (o que vende, ticket, plataforma, analytics, SAC). O que ficou em branco, deixe
+     como linha `_a preencher_`.
+   - as demais seções exatamente como no template. Mantenha os comentários HTML: são as
+     instruções de preenchimento e não entram no contexto.
+5. No `CLAUDE.md` da pasta:
    - se existir e ainda não tiver `@CRO.md`, acrescente ao final:
      `Loja: <nome>. Contexto do negócio e da mensuração: @CRO.md`
    - se não existir, crie com o título `# Projeto: <nome da loja>` e essa mesma linha.
-5. Termine dizendo, em 3 linhas: onde o arquivo está, quais 3 seções preenchemos hoje
+6. Termine dizendo, em 3 linhas: onde os arquivos estão, quais 3 seções preenchemos hoje
    (2. Jornada, 3. Plano de mensuração, 5. Voz do cliente) e que o Claude só passa a ler
    o CRO.md na próxima sessão: sair e entrar de novo.
 
-Não preencha as seções pelo usuário. O template vem com exemplo em comentário; a lição é
-o aluno escrever o dele.
+Não preencha as seções 2, 3 e 5 pelo usuário. O template vem com exemplo em comentário;
+a lição é o aluno escrever o dele.
 
-## Template (copiar na íntegra)
+## Template (copiar na íntegra, trocando só o que o passo 4 manda)
 
 ```markdown
 # CRO.md — contexto da loja

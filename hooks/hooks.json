@@ -1,0 +1,18 @@
+{
+  "description": "Guardrails do plugin cro: a skill cro-md só roda dentro da pasta do projeto.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/checa-pasta.sh\"",
+            "timeout": 10,
+            "statusMessage": "Conferindo se esta é a pasta do projeto..."
+          }
+        ]
+      }
+    ]
+  }
+}
