@@ -35,6 +35,10 @@ sinal verde, lê três arquivos, escreve e sai. Sempre em pt-BR.
 4. **Riscos de implementação** — flickering, SPA, conflito com outro teste,
    elemento que pode não existir.
 
+Os itens que o QA marcou `n/d — depende da variante` (tipicamente 4, 6, 7 e 8 do
+pre-flight) são **condições de entrega suas**: cubra cada um no plano, dizendo
+como vai validar. Não os trate como já resolvidos.
+
 Se o brief pedir o código, use a skill `cro-ai-day:variante-builder` e escreva também
 `variante-b.js` (e `variante-b.css` se precisar) na pasta do projeto. Use
 `cro-ai-day:detecta-design-system` apenas se o `DESIGN.md` existir mas estiver

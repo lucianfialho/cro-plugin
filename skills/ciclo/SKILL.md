@@ -48,6 +48,7 @@ Despache `cro-ai-day:qa` com um brief curto:
 
     Rode o pre-flight para a hipótese do relatorios/analista.md.
     Contexto: CRO.md e relatorios/analista.md nesta pasta.
+    A variante ainda não existe — é o momento A do seu papel.
     Entregue relatorios/qa.md com os 8 itens e o veredito.
 
 Leia **só** `relatorios/qa.md` e decida:
@@ -63,18 +64,15 @@ Despache `cro-ai-day:dev`:
 
     O QA liberou. Planeje a variante da hipótese do relatorios/analista.md.
     Contexto: CRO.md, DESIGN.md e relatorios/qa.md nesta pasta.
+    Os n/d do QA são condições de entrega — cubra cada um no plano.
     Entregue relatorios/dev.md. Sem DESIGN.md, pare e diga que falta.
 
 Leia **só** `relatorios/dev.md`.
 
 ## Passo 5 — fechamento
 
-Resuma em no máximo 10 linhas, sem recolar os relatórios:
-
-1. Página/etapa atacada.
-2. As 2 dimensões mais fracas e a hipótese escolhida (uma linha).
-3. Veredito do QA e o item que travou, se travou.
-4. O que o dev planejou, ou por que não rodou.
-5. Os três caminhos: `relatorios/analista.md`, `relatorios/qa.md`,
-   `relatorios/dev.md`.
-6. O próximo passo concreto — quase sempre buscar o dado que virou `n/d`.
+Resuma em no máximo 10 linhas, sem recolar os relatórios: a página atacada · as
+2 dimensões mais fracas e a hipótese escolhida · o veredito do QA e o item que
+travou, se travou · o que o dev planejou, ou por que não rodou · os três
+caminhos `relatorios/analista.md`, `relatorios/qa.md` e `relatorios/dev.md` · e o
+próximo passo concreto, quase sempre buscar o dado que virou `n/d`.
