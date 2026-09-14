@@ -91,6 +91,8 @@ os arquivos, lê entre eles apenas o relatório, e para o ciclo se o QA reprovar
 contexto, gasta o que precisa e devolve um resumo de poucas linhas. O que sobe
 de volta é o relatório, não a conversa.
 
+**Quem orquestra é a sua sessão:** o `/cro-ai-day:ciclo` roda no modelo que estiver ativo. Testamos um orquestrador separado em Haiku (skill em fork) e a sessão principal continuou coordenando os despachos, então não economizou nada. O que economiza de verdade: os três papéis já rodam em **Sonnet** (fixo em `agents/*.md`), e você pode rodar `/model haiku` antes do `/ciclo`, porque o orquestrador só lê três relatórios curtos e decide.
+
 ```
 /cro-ai-day:ciclo → analista → relatorios/analista.md
            → qa       → relatorios/qa.md  ──🔴 não pode subir? para aqui
