@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Hook PreToolUse do plugin cro: só age quando a skill cro-md vai rodar.
+# Hook do plugin cro (UserPromptSubmit + PreToolUse): só age quando a skill cro-md vai rodar.
 # Bloqueia se a pasta atual for a home, Desktop, Downloads, Documentos ou a raiz:
 # o CRO.md tem que nascer dentro da pasta do projeto, não no meio dos seus arquivos.
 # Sai com 2 + mensagem no stderr = Claude Code cancela a skill e mostra o motivo.
@@ -18,13 +18,19 @@ print(v if isinstance(v,str) else "")' "$1" 2>/dev/null
   fi
 }
 
-ferramenta="$(campo tool_name)"
-skill="$(campo skill)"
+evento="$(campo hook_event_name)"
 pasta="$(campo cwd)"
 [ -z "$pasta" ] && pasta="$PWD"
 
-[ "$ferramenta" = "Skill" ] || exit 0
-case "$skill" in *cro-md*) ;; *) exit 0 ;; esac
+# Dois caminhos até a skill: o usuário digita /cro:cro-md (UserPromptSubmit, campo prompt)
+# ou o modelo chama a ferramenta Skill (PreToolUse, campo tool_input.skill). Cobrimos os dois.
+if [ "$evento" = "UserPromptSubmit" ]; then
+  prompt="$(campo prompt)"
+  case "$prompt" in /cro:cro-md*|/cro-md*) ;; *) exit 0 ;; esac
+else
+  [ "$(campo tool_name)" = "Skill" ] || exit 0
+  case "$(campo skill)" in *cro-md*) ;; *) exit 0 ;; esac
+fi
 
 home="${HOME%/}"
 nome="$(basename "$pasta")"
