@@ -78,6 +78,10 @@ arquivo curto** em `relatorios/`.
 | `cro-ai-day:qa` | `CRO.md` + `relatorios/analista.md` | `relatorios/qa.md`: os 8 itens do pre-flight marcados `ok` / `falta` / `n/d`, e o veredito "pode subir" ou "não pode subir" com o motivo. | Não reescreve a hipótese. |
 | `cro-ai-day:dev` | `CRO.md`, `DESIGN.md` e `relatorios/qa.md` | `relatorios/dev.md`: o que muda, onde, como medir — e os `variante-b.*`, se pedirem. | Não age sem o "pode subir". Sem `DESIGN.md`, para. |
 
+Os três arquivos ficam em `agents/` e o Claude Code os carrega pela convenção do
+diretório — não declare `agents` no `plugin.json`: com a lista de arquivos o
+`details` reporta `Agents (0)`, e com `"./agents/"` o plugin não carrega.
+
 O `/cro-ai-day:ciclo` encadeia os três: confere o `CRO.md`, pergunta **só** qual página
 atacar, despacha um agente por vez com um brief de até 10 linhas que aponta para
 os arquivos, lê entre eles apenas o relatório, e para o ciclo se o QA reprovar.

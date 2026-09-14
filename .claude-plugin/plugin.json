@@ -12,10 +12,5 @@
   "homepage": "https://github.com/lucianfialho/cro-plugin",
   "repository": "https://github.com/lucianfialho/cro-plugin",
   "license": "MIT",
-  "keywords": ["cro", "experimentacao", "teste-ab", "analytics", "conversao"],
-  "agents": [
-    "./agents/analista.md",
-    "./agents/qa.md",
-    "./agents/dev.md"
-  ]
+  "keywords": ["cro", "experimentacao", "teste-ab", "analytics", "conversao"]
 }
