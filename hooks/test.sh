@@ -116,23 +116,23 @@ checa "sem-plano-sem-hipotese  ignora skill que nao e a dele" \
 digitou() { printf '{"cwd":"%s","hook_event_name":"UserPromptSubmit","prompt":"%s"}' "$1" "$2"; }
 
 P=$(projeto sem-cro)
-checa "sem-plano-sem-hipotese  BLOQUEIA /cro:hipotese-estruturada digitado sem CRO.md" \
-  sem-plano-sem-hipotese.sh "$(digitou "$P" "/cro:hipotese-estruturada")" 2
+checa "sem-plano-sem-hipotese  BLOQUEIA /cro-ai-day:hipotese-estruturada digitado sem CRO.md" \
+  sem-plano-sem-hipotese.sh "$(digitou "$P" "/cro-ai-day:hipotese-estruturada")" 2
 
 P=$(projeto cro-preenchido)
-checa "sem-plano-sem-hipotese  PASSA /cro:hipotese-estruturada digitado com a secao preenchida" \
-  sem-plano-sem-hipotese.sh "$(digitou "$P" "/cro:hipotese-estruturada")" 0
+checa "sem-plano-sem-hipotese  PASSA /cro-ai-day:hipotese-estruturada digitado com a secao preenchida" \
+  sem-plano-sem-hipotese.sh "$(digitou "$P" "/cro-ai-day:hipotese-estruturada")" 0
 
 checa "sem-plano-sem-hipotese  ignora prompt comum (oi)" \
   sem-plano-sem-hipotese.sh "$(digitou "$(projeto sem-cro)" "oi")" 0
 
 P=$(projeto sem-design)
-checa "sem-design-sem-variante BLOQUEIA /cro:variante-builder digitado sem DESIGN.md" \
-  sem-design-sem-variante.sh "$(digitou "$P" "/cro:variante-builder")" 2
+checa "sem-design-sem-variante BLOQUEIA /cro-ai-day:variante-builder digitado sem DESIGN.md" \
+  sem-design-sem-variante.sh "$(digitou "$P" "/cro-ai-day:variante-builder")" 2
 
 P=$(projeto com-design)
-checa "sem-design-sem-variante PASSA /cro:variante-builder digitado com DESIGN.md" \
-  sem-design-sem-variante.sh "$(digitou "$P" "/cro:variante-builder")" 0
+checa "sem-design-sem-variante PASSA /cro-ai-day:variante-builder digitado com DESIGN.md" \
+  sem-design-sem-variante.sh "$(digitou "$P" "/cro-ai-day:variante-builder")" 0
 
 checa "sem-design-sem-variante ignora prompt comum (oi)" \
   sem-design-sem-variante.sh "$(digitou "$(projeto sem-design)" "oi")" 0

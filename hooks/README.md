@@ -17,7 +17,7 @@ Os dois hooks de skill (`sem-plano-sem-hipotese` e `sem-design-sem-variante`)
 escutam **dois eventos**, `UserPromptSubmit` e `PreToolUse`, porque há dois
 caminhos até a mesma skill: quando o modelo decide invocá-la, o Claude Code
 chama a ferramenta `Skill` e o `PreToolUse` dispara; mas quando **você digita**
-`/cro:hipotese-estruturada`, a skill é expandida direto no prompt, a ferramenta
+`/cro-ai-day:hipotese-estruturada`, a skill é expandida direto no prompt, a ferramenta
 `Skill` nunca é chamada e só o `UserPromptSubmit` vê a jogada — se o hook
 escutasse apenas `PreToolUse`, bastaria digitar o comando para passar por cima
 do guardrail. (O `sem-srm-sem-resultado` olha `Bash`/`Read`, não skill, e por
@@ -131,7 +131,7 @@ Os scripts leem `hook_event_name` e escolhem o campo certo.
 {
   "cwd": "/caminho/do/projeto",
   "hook_event_name": "UserPromptSubmit",
-  "prompt": "/cro:hipotese-estruturada monta a hipótese"
+  "prompt": "/cro-ai-day:hipotese-estruturada monta a hipótese"
 }
 ```
 

@@ -47,7 +47,7 @@ if [ "$EVENTO" = "UserPromptSubmit" ]; then
   # O aluno digitou o comando: a skill e expandida direto no prompt e a
   # ferramenta Skill nunca e chamada. Mesmo guardrail, outro evento.
   case "$(json_get prompt)" in
-    /cro:variante-builder*|/variante-builder*) MOTIVO="a skill variante-builder" ;;
+    /cro-ai-day:variante-builder*|/variante-builder*) MOTIVO="a skill variante-builder" ;;
   esac
 else
   case "$(json_get tool_name)" in

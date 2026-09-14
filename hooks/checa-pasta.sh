@@ -22,11 +22,11 @@ evento="$(campo hook_event_name)"
 pasta="$(campo cwd)"
 [ -z "$pasta" ] && pasta="$PWD"
 
-# Dois caminhos até a skill: o usuário digita /cro:cro-md (UserPromptSubmit, campo prompt)
+# Dois caminhos até a skill: o usuário digita /cro-ai-day:cro-md (UserPromptSubmit, campo prompt)
 # ou o modelo chama a ferramenta Skill (PreToolUse, campo tool_input.skill). Cobrimos os dois.
 if [ "$evento" = "UserPromptSubmit" ]; then
   prompt="$(campo prompt)"
-  case "$prompt" in /cro:cro-md*|/cro-md*) ;; *) exit 0 ;; esac
+  case "$prompt" in /cro-ai-day:cro-md*|/cro-md*) ;; *) exit 0 ;; esac
 else
   [ "$(campo tool_name)" = "Skill" ] || exit 0
   case "$(campo skill)" in *cro-md*) ;; *) exit 0 ;; esac
@@ -56,6 +56,6 @@ O que fazer:
   1. sai do Claude (/exit)
   2. cria e entra na pasta do projeto:   mkdir meu-projeto  →  cd meu-projeto
   3. abre de novo:                     claude
-  4. roda /cro:cro-md outra vez
+  4. roda /cro-ai-day:cro-md outra vez
 MSG
 exit 2

@@ -1,6 +1,6 @@
 ---
 name: cro-md
-description: Entrevista guiada que monta o CRO.md do projeto (o contexto da loja pro Claude) — pasta, loja, conectores, jornada, plano de mensuração e voz do cliente — e registra @CRO.md no CLAUDE.md. Use quando o usuário disser "cria o CRO.md", "inicia o contexto da loja", "monta o arquivo de contexto de CRO" ou rodar /cro:cro-md.
+description: Entrevista guiada que monta o CRO.md do projeto (o contexto da loja pro Claude) — pasta, loja, conectores, jornada, plano de mensuração e voz do cliente — e registra @CRO.md no CLAUDE.md. Use quando o usuário disser "cria o CRO.md", "inicia o contexto da loja", "monta o arquivo de contexto de CRO" ou rodar /cro-ai-day:cro-md.
 ---
 
 # CRO.md — o contexto da loja, numa conversa
@@ -67,7 +67,7 @@ skill `detecta-design-system` gera. Não pergunte sobre elas agora.
 Site:
 
 <!-- Convenção deste workshop (não é padrão de mercado). O Claude lê isto via CLAUDE.md. -->
-<!-- Feito na entrevista do /cro:cro-md. Seções com _a preencher_ têm o exemplo no comentário. -->
+<!-- Feito na entrevista do /cro-ai-day:cro-md. Seções com _a preencher_ têm o exemplo no comentário. -->
 
 ## Conectores
 <!-- De onde o Claude puxa dado. Exemplo: GA4 via google-analytics-mcp · SAC no Zendesk (~400 tickets/mês)

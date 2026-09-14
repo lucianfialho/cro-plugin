@@ -10,9 +10,9 @@
   },
   "plugins": [
     {
-      "name": "cro",
+      "name": "cro-ai-day",
       "source": "./",
-      "displayName": "CRO com Claude",
+      "displayName": "CRO AI Day",
       "description": "Skills de CRO organizadas por papel: analista, QA, dev — e o slot da skill de metodologia do seu time.",
       "version": "0.1.0",
       "author": { "name": "Lucian Fialho" },

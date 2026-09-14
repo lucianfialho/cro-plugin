@@ -1,5 +1,5 @@
 {
-  "description": "Guardrails do plugin cro: a skill cro-md só roda dentro da pasta do projeto.",
+  "description": "Guardrails do plugin cro-ai-day: a skill cro-md só roda dentro da pasta do projeto.",
   "hooks": {
     "PreToolUse": [
       {

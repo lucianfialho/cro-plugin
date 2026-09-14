@@ -10,7 +10,7 @@
 # Protocolo (Claude Code 2.1.x): o payload chega em JSON no stdin. Quando o
 # modelo chama a ferramenta, vem hook_event_name="PreToolUse", tool_name="Skill"
 # e tool_input={"skill":"<nome>"}. Quando o aluno digita o comando, vem
-# hook_event_name="UserPromptSubmit" e prompt="/cro:<nome> ...". Para bloquear,
+# hook_event_name="UserPromptSubmit" e prompt="/cro-ai-day:<nome> ...". Para bloquear,
 # escrevemos a mensagem no stderr e saimos com codigo 2 — vale nos dois eventos.
 # ---------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ print(d if isinstance(d, str) else "")
 
 # --- a skill esta prestes a rodar? ------------------------------------------
 # Sao dois caminhos ate ela e o hook precisa cobrir os dois:
-#   1. o aluno digita /cro:hipotese-estruturada  -> UserPromptSubmit, campo prompt
+#   1. o aluno digita /cro-ai-day:hipotese-estruturada  -> UserPromptSubmit, campo prompt
 #      (a skill e expandida no proprio prompt; a ferramenta Skill nunca e chamada)
 #   2. o modelo decide invocar a skill           -> PreToolUse, tool_input.skill
 EVENTO=$(json_get hook_event_name)
@@ -55,7 +55,7 @@ EVENTO=$(json_get hook_event_name)
 if [ "$EVENTO" = "UserPromptSubmit" ]; then
   PROMPT=$(json_get prompt)
   case "$PROMPT" in
-    /cro:hipotese-estruturada*|/hipotese-estruturada*) ;;
+    /cro-ai-day:hipotese-estruturada*|/hipotese-estruturada*) ;;
     *) exit 0 ;;
   esac
 else
