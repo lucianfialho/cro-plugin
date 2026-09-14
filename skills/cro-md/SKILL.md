@@ -1,101 +1,117 @@
 ---
 name: cro-md
-description: Cria o CRO.md do projeto (o contexto da loja pro Claude) a partir do template do workshop, preenche a seção Negócio com o que o usuário responder e registra @CRO.md no CLAUDE.md. Use quando o usuário disser "cria o CRO.md", "inicia o contexto da loja", "monta o arquivo de contexto de CRO" ou rodar /cro:cro-md.
+description: Entrevista guiada que monta o CRO.md do projeto (o contexto da loja pro Claude) — pasta, loja, conectores, jornada, plano de mensuração e voz do cliente — e registra @CRO.md no CLAUDE.md. Use quando o usuário disser "cria o CRO.md", "inicia o contexto da loja", "monta o arquivo de contexto de CRO" ou rodar /cro:cro-md.
 ---
 
-# CRO.md — o contexto da loja, num arquivo
+# CRO.md — o contexto da loja, numa conversa
 
-## Tarefa
+Você conduz. Uma etapa por vez, uma mensagem por etapa, sempre em pt-BR. O usuário pode
+responder "pula" em qualquer etapa: a seção fica com `_a preencher_` e o exemplo no comentário.
+Não invente nada que ele não disse. Não preencha por ele. Guarde as respostas e só escreva
+os arquivos na etapa 7.
 
-1. **Confirme a pasta.** Diga em uma linha onde você está (o caminho completo do diretório
-   atual) e pergunte: "É a pasta do projeto? Se não, me diz qual." Só siga com um sim.
-   Se o usuário indicar outra pasta, escreva os arquivos lá e avise que ele precisa abrir
-   o Claude nessa pasta pra o contexto valer.
-2. Se já existe `CRO.md` na pasta, **pare** e diga que ele existe. Não sobrescreva.
-3. **Pergunte, numa mensagem só**, e aceite resposta parcial (o que não vier, deixe em branco):
-   - nome da loja
-   - endereço do site (URL)
-   - o que vende, em uma frase
-   - ticket médio, se souber
-   - plataforma da loja (VTEX, Shopify, Nuvemshop, Magento, própria…)
-   - onde estão os dados de comportamento (GA4? outro?)
-   - por onde chega o SAC (Zendesk, WhatsApp, e-mail…)
-4. Escreva `CRO.md` na pasta com o template abaixo:
-   - primeira linha: `# CRO.md — contexto da loja <nome>`, e logo abaixo `Site: <URL>`
-   - **seção 1. Negócio** preenchida com o que veio das respostas, no lugar do exemplo
-     (o que vende, ticket, plataforma, analytics, SAC). O que ficou em branco, deixe
-     como linha `_a preencher_`.
-   - as demais seções exatamente como no template. Mantenha os comentários HTML: são as
-     instruções de preenchimento e não entram no contexto.
-5. No `CLAUDE.md` da pasta:
-   - se existir e ainda não tiver `@CRO.md`, acrescente ao final:
-     `Loja: <nome>. Contexto do negócio e da mensuração: @CRO.md`
-   - se não existir, crie com o título `# Projeto: <nome da loja>` e essa mesma linha.
-6. Termine dizendo, em 3 linhas: onde os arquivos estão, quais 3 seções preenchemos hoje
-   (2. Jornada, 3. Plano de mensuração, 5. Voz do cliente) e que o Claude só passa a ler
-   o CRO.md na próxima sessão: sair e entrar de novo.
+## Etapa 0 — a pasta
+Diga o caminho completo do diretório atual e pergunte: "É a pasta do projeto? Se não, me diz
+qual." Só siga com um sim. Se já existe `CRO.md` aqui, pare: diga que existe e ofereça abrir
+uma seção específica pra completar, em vez de criar outro.
 
-Não preencha as seções 2, 3 e 5 pelo usuário. O template vem com exemplo em comentário;
-a lição é o aluno escrever o dele.
+## Etapa 1 — a loja
+Pergunte numa mensagem só: nome da loja · endereço do site · o que vende, em uma frase ·
+ticket médio, se souber · plataforma (VTEX, Shopify, Nuvemshop, Magento, própria…).
 
-## Template (copiar na íntegra, trocando só o que o passo 4 manda)
+## Etapa 2 — os conectores
+Explique em uma linha: "conector é de onde eu vou puxar dado sem você exportar planilha".
+Pergunte, item a item, e ofereça a opção certa pra cada resposta:
+- **Comportamento no site:** GA4? → conector `google-analytics-mcp` (oficial do Google) ou o
+  `gmp-cli`. Outro? Anote qual.
+- **SAC:** Zendesk, WhatsApp, e-mail, outro? Anote o canal e o volume aproximado por mês.
+- **Backlog e documentação do time:** Notion, planilha, Jira, nada? → conector `notion-mcp-server`
+  se for Notion.
+- **Navegar o site como usuário:** a extensão Claude in Chrome (anote "sim" ou "ainda não").
+Registre o resultado na seção **Conectores** do arquivo. O que ele não tem, escreva "não tem".
+
+## Etapa 3 — a jornada
+Peça a lista das etapas que o usuário percorre, na ordem, com o nome que o time usa. Se ele fez
+o exercício dos 5 minutos no site, peça as anotações: onde travou, onde pensou, onde quase
+desistiu. Vai pra seção 2.
+
+## Etapa 4 — o plano de mensuração
+Primeiro: KPI primário (um só) e guardrail (o número que não pode piorar). Depois, **para cada
+etapa da jornada** que ele deu na etapa 3, pergunte: qual evento marca essa etapa e onde você lê
+esse número. Sugira os nomes padrão do GA4 quando couber (`view_item`, `add_to_cart`,
+`begin_checkout`, `purchase`, `refund`) sem impor. Monte a tabela da seção 3.
+
+## Etapa 5 — a voz do cliente
+Três perguntas: qual é a reclamação mais comum no SAC (e a fonte) · qual objeção o time de vendas
+mais ouve · existe pesquisa onsite? Onde e o que pergunta? Vai pra seção 5, sempre com a fonte.
+
+## Etapa 6 — o que fica pra depois
+Diga que as seções 4 (Segmentos), 6 (Perfil demográfico) e 7 (Testes e backlog) ficam com
+`_a preencher_` e o exemplo no comentário, e que o 8 (Design) aponta pro `DESIGN.md` que a
+skill `detecta-design-system` gera. Não pergunte sobre elas agora.
+
+## Etapa 7 — escrever
+1. `CRO.md` na pasta, a partir do template abaixo: primeira linha `# CRO.md — contexto da loja
+   <nome>`, segunda `Site: <URL>`; seções 1, 2, 3, 5 e **Conectores** com as respostas; 4, 6, 7
+   com `_a preencher_` e o exemplo em comentário; 8 como está. Mantenha os comentários HTML.
+2. `CLAUDE.md` na pasta: se existir e não tiver `@CRO.md`, acrescente ao final
+   `Loja: <nome>. Contexto do negócio e da mensuração: @CRO.md`; se não existir, crie com
+   `# Projeto: <nome>` e essa linha.
+3. Feche em 3 linhas: onde estão os arquivos, o que ficou `_a preencher_`, e que o Claude só
+   passa a ler o CRO.md na próxima sessão: sair e entrar de novo.
+
+## Template
 
 ```markdown
 # CRO.md — contexto da loja
+Site:
 
 <!-- Convenção deste workshop (não é padrão de mercado). O Claude lê isto via CLAUDE.md. -->
-<!-- Você preenche AO VIVO: 2. Jornada, 3. Plano de mensuração, 5. Voz do cliente (vêm vazias, com exemplo no comentário). -->
-<!-- Leva para preencher depois: 1. Negócio, 4. Segmentos, 6. Perfil, 7. Testes, 8. Design. -->
-<!-- Tudo abaixo é exemplo de uma loja fictícia (Malha Viva, moda básica). Troque pelo seu. -->
+<!-- Feito na entrevista do /cro:cro-md. Seções com _a preencher_ têm o exemplo no comentário. -->
+
+## Conectores
+<!-- De onde o Claude puxa dado. Exemplo: GA4 via google-analytics-mcp · SAC no Zendesk (~400 tickets/mês)
+     · backlog no Notion via notion-mcp-server · Claude in Chrome: sim -->
 
 ## 1. Negócio
-<!-- Produto, ticket médio e o funil inteiro em uma linha. -->
-Moda básica em malha, venda direta ao consumidor. Ticket médio R$ 189, 2,3 itens por pedido.
-Funil: anúncio/busca → listagem → produto → carrinho → checkout em 3 passos → pedido.
-72% do tráfego é mobile, e a conversão mobile é metade da de desktop.
+<!-- Produto, ticket médio, plataforma e o funil inteiro em uma linha.
+     Exemplo: Moda básica em malha, venda direta. Ticket médio R$ 189. VTEX.
+     Funil: anúncio/busca → listagem → produto → carrinho → checkout → pedido. -->
 
 ## 2. Jornada em etapas
-<!-- AO VIVO. As etapas que o usuário percorre, na ordem, com o nome que VOCÊ usa internamente.
-     Exemplo: 1. Descoberta (anúncio, busca, e-mail)  2. Listagem  3. Página de produto
-     4. Escolha de tamanho  5. Carrinho  6. Identificação e frete  7. Pagamento  8. Pós-compra -->
+<!-- As etapas na ordem, com o nome que o time usa, e onde dói.
+     Exemplo: 1. Descoberta  2. Listagem  3. Página de produto  4. Escolha de tamanho
+     5. Carrinho  6. Identificação e frete  7. Pagamento  8. Pós-compra -->
 
 ## 3. Plano de mensuração
-<!-- AO VIVO. KPI primário e guardrail; depois um evento por etapa e onde você lê o número.
-     Exemplo:  KPI primário: conversão sessão→pedido. Guardrail: taxa de troca por tamanho.
-     | Página de produto | `view_item` | GA4 |
-     | Escolha de tamanho | `select_size` (custom) | GA4 via GTM |
-     | Checkout | `begin_checkout` → `purchase` | GA4 + backoffice | -->
+<!-- KPI primário e guardrail; um evento por etapa e onde se lê.
+     Exemplo: KPI primário: conversão sessão→pedido. Guardrail: refund.
+     | Página de produto | view_item · add_to_cart | GA4 | -->
 KPI primário:            Guardrail:
 
 | Etapa | Evento | Onde mede |
 |---|---|---|
 
 ## 4. Segmentos que importam
-<!-- 3 ou 4 recortes que se comportam de forma diferente — não demografia genérica. -->
-- Mobile primeira compra — 54% das sessões, converte 0,8%
-- Recorrente que já sabe o tamanho — converte 4x mais, ignora a tabela de medidas
-- Tráfego de e-mail promocional — muito add-to-cart, abandona no frete
-- Desktop pesquisando preço — volta em até 7 dias
+<!-- 3 ou 4 recortes que se comportam diferente. Exemplo: Mobile primeira compra — 54% das
+     sessões, converte 0,8% · Recorrente que já sabe o tamanho — converte 4x mais -->
+_a preencher_
 
 ## 5. Voz do cliente
-<!-- O que o SAC ouve e as objeções que vendas escuta, sempre com a fonte do dado.
-     Exemplo: SAC (Zendesk, 412 tickets/mês): "a peça veio menor que eu esperava" = 31% das trocas.
-     Objeção de vendas (WhatsApp): frete acima de R$ 30 para o Nordeste derruba o fechamento.
-     Pesquisa onsite na saída do carrinho (n=380): 44% marcam "quero ver o frete antes de me cadastrar". -->
+<!-- O que o SAC ouve, a objeção de vendas, a pesquisa onsite — sempre com a fonte.
+     Exemplo: SAC (Zendesk, 412 tickets/mês): "veio menor que eu esperava" = 31% das trocas. -->
 
 ## 6. Perfil demográfico
-<!-- Quem JÁ compra, puxado da sua própria base — não o público que você gostaria de ter. -->
-Compradores de 2026: 68% mulheres, 28–44 anos, concentradas em SP, MG e PR.
-Recompra média em 94 dias, e o ticket sobe 22% no segundo pedido.
-Fonte: export do banco de pedidos cruzado com GA4 (não é persona de agência).
+<!-- Quem JÁ compra, puxado da própria base. Exemplo: 68% mulheres, 28–44, SP/MG/PR;
+     recompra em 94 dias. Fonte: banco de pedidos cruzado com GA4. -->
+_a preencher_
 
 ## 7. Testes e backlog
-<!-- Testes já rodados com o resultado, e as hipóteses na fila no template da Taciana. -->
-Rodado: frete grátis acima de R$ 199 exibido no carrinho — +6,1% de pedidos, guardrail estável, implementado.
-Backlog: Se abrirmos a tabela de medidas na página de produto, para mobile primeira compra, então a
-troca por tamanho cai 15%, porque 31% dos tickets do SAC são "veio menor". ICE: 8 × 7 × 6.
+<!-- Testes rodados com resultado, e hipóteses na fila no template da Taciana:
+     Se [mudarmos X], para [segmento Y], então [resultado Z], porque [evidência]. ICE. -->
+_a preencher_
 
 ## 8. Design
-<!-- Uma linha só: o contexto visual mora em outro arquivo. -->
+<!-- O contexto visual mora em outro arquivo, gerado pela skill detecta-design-system. -->
 Ver `DESIGN.md`.
 ```
