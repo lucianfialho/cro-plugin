@@ -1,15 +1,17 @@
 #!/bin/bash
 # ---------------------------------------------------------------------------
-# Hook PreToolUse: sem-plano-sem-hipotese
+# Hook UserPromptSubmit + PreToolUse: sem-plano-sem-hipotese
 #
 # Bloqueia a skill `hipotese-estruturada` enquanto o projeto nao tiver um
 # `CRO.md` com a secao "Plano de mensuracao" preenchida.
 #
 # A regra: sem saber o que medir, hipotese e chute com template bonito.
 #
-# Protocolo (Claude Code 2.1.x): o payload chega em JSON no stdin, com
-# tool_name="Skill" e tool_input={"skill":"<nome>"}. Para bloquear,
-# escrevemos a mensagem no stderr e saimos com codigo 2.
+# Protocolo (Claude Code 2.1.x): o payload chega em JSON no stdin. Quando o
+# modelo chama a ferramenta, vem hook_event_name="PreToolUse", tool_name="Skill"
+# e tool_input={"skill":"<nome>"}. Quando o aluno digita o comando, vem
+# hook_event_name="UserPromptSubmit" e prompt="/cro:<nome> ...". Para bloquear,
+# escrevemos a mensagem no stderr e saimos com codigo 2 — vale nos dois eventos.
 # ---------------------------------------------------------------------------
 
 PAYLOAD=$(cat)
@@ -43,14 +45,26 @@ print(d if isinstance(d, str) else "")
   fi
 }
 
-TOOL=$(json_get tool_name)
-[ "$TOOL" = "Skill" ] || exit 0
+# --- a skill esta prestes a rodar? ------------------------------------------
+# Sao dois caminhos ate ela e o hook precisa cobrir os dois:
+#   1. o aluno digita /cro:hipotese-estruturada  -> UserPromptSubmit, campo prompt
+#      (a skill e expandida no proprio prompt; a ferramenta Skill nunca e chamada)
+#   2. o modelo decide invocar a skill           -> PreToolUse, tool_input.skill
+EVENTO=$(json_get hook_event_name)
 
-SKILL=$(json_get tool_input skill)
-case "$SKILL" in
-  *hipotese-estruturada*) ;;
-  *) exit 0 ;;
-esac
+if [ "$EVENTO" = "UserPromptSubmit" ]; then
+  PROMPT=$(json_get prompt)
+  case "$PROMPT" in
+    /cro:hipotese-estruturada*|/hipotese-estruturada*) ;;
+    *) exit 0 ;;
+  esac
+else
+  [ "$(json_get tool_name)" = "Skill" ] || exit 0
+  case "$(json_get tool_input skill)" in
+    *hipotese-estruturada*) ;;
+    *) exit 0 ;;
+  esac
+fi
 
 # --- diretorio do projeto ---------------------------------------------------
 PROJ=$(json_get cwd)

@@ -109,6 +109,34 @@ checa "sem-plano-sem-hipotese  ignora skill que nao e a dele" \
   sem-plano-sem-hipotese.sh \
   "{\"cwd\":\"$P\",\"hook_event_name\":\"PreToolUse\",\"tool_name\":\"Skill\",\"tool_input\":{\"skill\":\"ice-score\"}}" 0
 
+# --- 4. o aluno digita o comando (UserPromptSubmit) -------------------------
+# A skill digitada e expandida no prompt: a ferramenta Skill nao e chamada e o
+# PreToolUse nao dispara. O hook tem que pegar o prompt tambem, senao o aluno
+# passa por cima do guardrail so por digitar o comando.
+digitou() { printf '{"cwd":"%s","hook_event_name":"UserPromptSubmit","prompt":"%s"}' "$1" "$2"; }
+
+P=$(projeto sem-cro)
+checa "sem-plano-sem-hipotese  BLOQUEIA /cro:hipotese-estruturada digitado sem CRO.md" \
+  sem-plano-sem-hipotese.sh "$(digitou "$P" "/cro:hipotese-estruturada")" 2
+
+P=$(projeto cro-preenchido)
+checa "sem-plano-sem-hipotese  PASSA /cro:hipotese-estruturada digitado com a secao preenchida" \
+  sem-plano-sem-hipotese.sh "$(digitou "$P" "/cro:hipotese-estruturada")" 0
+
+checa "sem-plano-sem-hipotese  ignora prompt comum (oi)" \
+  sem-plano-sem-hipotese.sh "$(digitou "$(projeto sem-cro)" "oi")" 0
+
+P=$(projeto sem-design)
+checa "sem-design-sem-variante BLOQUEIA /cro:variante-builder digitado sem DESIGN.md" \
+  sem-design-sem-variante.sh "$(digitou "$P" "/cro:variante-builder")" 2
+
+P=$(projeto com-design)
+checa "sem-design-sem-variante PASSA /cro:variante-builder digitado com DESIGN.md" \
+  sem-design-sem-variante.sh "$(digitou "$P" "/cro:variante-builder")" 0
+
+checa "sem-design-sem-variante ignora prompt comum (oi)" \
+  sem-design-sem-variante.sh "$(digitou "$(projeto sem-design)" "oi")" 0
+
 echo
 echo "-----------------------------------------"
 echo "PASS: $OK   FAIL: $FALHOU"

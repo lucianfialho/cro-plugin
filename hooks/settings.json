@@ -32,6 +32,26 @@
           }
         ]
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/sem-plano-sem-hipotese.sh\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$HOME/.claude/hooks/sem-design-sem-variante.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

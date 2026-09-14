@@ -1,6 +1,6 @@
 #!/bin/bash
 # ---------------------------------------------------------------------------
-# Hook PreToolUse: sem-design-sem-variante
+# Hook UserPromptSubmit + PreToolUse: sem-design-sem-variante
 #
 # Bloqueia a skill `variante-builder` e a escrita de arquivos de variante
 # (variante*.html / .css / .js) enquanto nao existir `DESIGN.md` no projeto.
@@ -9,7 +9,8 @@
 # mede o estranhamento, nao a hipotese.
 #
 # Protocolo (Claude Code 2.1.x): payload JSON no stdin; bloqueio = mensagem
-# no stderr + exit 2.
+# no stderr + exit 2. Escuta UserPromptSubmit (aluno digita o comando, campo
+# prompt) e PreToolUse (modelo chama a ferramenta, campo tool_name).
 # ---------------------------------------------------------------------------
 
 PAYLOAD=$(cat)
@@ -39,25 +40,32 @@ print(d if isinstance(d, str) else "")
   fi
 }
 
-TOOL=$(json_get tool_name)
+EVENTO=$(json_get hook_event_name)
 MOTIVO=""
 
-case "$TOOL" in
-  Skill)
-    SKILL=$(json_get tool_input skill)
-    case "$SKILL" in
-      *variante-builder*) MOTIVO="a skill variante-builder" ;;
-    esac
-    ;;
-  Write|Edit|NotebookEdit)
-    ARQ=$(json_get tool_input file_path)
-    BASE=$(basename "$ARQ" 2>/dev/null)
-    # variante*.html, variante*.css, variante*.js (case-insensitive)
-    if printf '%s' "$BASE" | grep -qiE '^variante.*\.(html|css|js)$'; then
-      MOTIVO="escrever o arquivo de variante $BASE"
-    fi
-    ;;
-esac
+if [ "$EVENTO" = "UserPromptSubmit" ]; then
+  # O aluno digitou o comando: a skill e expandida direto no prompt e a
+  # ferramenta Skill nunca e chamada. Mesmo guardrail, outro evento.
+  case "$(json_get prompt)" in
+    /cro:variante-builder*|/variante-builder*) MOTIVO="a skill variante-builder" ;;
+  esac
+else
+  case "$(json_get tool_name)" in
+    Skill)
+      case "$(json_get tool_input skill)" in
+        *variante-builder*) MOTIVO="a skill variante-builder" ;;
+      esac
+      ;;
+    Write|Edit|NotebookEdit)
+      ARQ=$(json_get tool_input file_path)
+      BASE=$(basename "$ARQ" 2>/dev/null)
+      # variante*.html, variante*.css, variante*.js (case-insensitive)
+      if printf '%s' "$BASE" | grep -qiE '^variante.*\.(html|css|js)$'; then
+        MOTIVO="escrever o arquivo de variante $BASE"
+      fi
+      ;;
+  esac
+fi
 
 [ -n "$MOTIVO" ] || exit 0
 
